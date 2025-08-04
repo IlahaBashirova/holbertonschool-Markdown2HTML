@@ -21,7 +21,7 @@ if __name__ == "__main__":
         elif  line.startswith("##"):
             print("<h2>",line[2::],"</h2>")
         elif line.startswith("###"):
-            print("<h3>",line[3::],"</h3>)"
+            print("<h3>",line[3::],"</h3>")
         elif  line.startswith("####"):
             print("<h4>",line[4::],"</h4>")
         elif  line.startswith("#####"):
