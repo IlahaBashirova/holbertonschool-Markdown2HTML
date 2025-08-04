@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """
+markdown2html.py
 This script checks a Markdown file and outputfile arguments.
 """
 import sys
