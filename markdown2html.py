@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
-markdown2html.py
-README.md input file
-README.html outputfile
+README.md 
+README.html 
 """
 import sys
 import os
