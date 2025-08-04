@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """
 markdown2html.py
-This script checks a Markdown file and outputfile arguments.
+README.md input file
+README.html outputfile
 """
 import sys
 import os
 if __name__ == "__main__":
-    if len(sys.argv) !=3:
+    if len(sys.argv) <3:
         sys.stderr.write("Usage: ./markdown2html.py README.md README.html \n")
         sys.exit(1)
 
