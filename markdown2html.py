@@ -27,7 +27,8 @@ if __name__ == "__main__":
                     li+=1
                 else:
                     break
-            html.write(f"<ul> \n <li>{line[1::]}</li>\n</ul>\n")
+            if li==1:
+                html.write(f"<ul> \n <li>{line[1::]}</li>\n</ul>\n")
             if 1<=count<=6 and line[count:count+1]==" ":
                 content=line[count::]
                 html.write(f" <h{count}> {content} </h{count}>\n")
