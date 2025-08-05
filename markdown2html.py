@@ -22,9 +22,12 @@ if __name__ == "__main__":
             for i in line:
                 if i=="#":
                     count+=1
+                elif i=="-":
+                    html.write(f"<ul>\n <li>{line[1::]}</li>\n </ul>")
                 else:
                     break
             if 1<=count<=6 and line[count:count+1]==" ":
                 content=line[count::]
                 html.write(f" <h{count}> {content} </h{count}>\n")
+    
     sys.exit(0)
