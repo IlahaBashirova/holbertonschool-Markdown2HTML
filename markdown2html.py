@@ -26,5 +26,5 @@ if __name__ == "__main__":
                     break
             if 1<=count<=6 and line[count:count+1]==" ":
                 content=line[count::]
-                html.write(f" <h{count}> {content} </h{count}>")
+                html.write(f" <h{count}> {content} </h{count}>\n")
     sys.exit(0)
