@@ -19,13 +19,15 @@ if __name__ == "__main__":
         for line in md:
             line=line.strip()
             count=0
+            li=0
             for i in line:
                 if i=="#":
                     count+=1
                 elif i=="-":
-                    html.write(f"<ul>\n <li>{line[1::]}</li>\n </ul>")
+                    li+=1
                 else:
                     break
+            html.write(f"<ul> \n <li>{line[1::]}</li>\n</ul>\n")
             if 1<=count<=6 and line[count:count+1]==" ":
                 content=line[count::]
                 html.write(f" <h{count}> {content} </h{count}>\n")
