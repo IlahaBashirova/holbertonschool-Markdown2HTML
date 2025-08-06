@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-markdown2html.py - Markdown (.md) faylını HTML (.html) faylına çevirən skript.
+markdown2html.py - A script that converts a Markdown (.md) file to an HTML (.html) file.
 
-Dəstəklədiyi Markdown elementləri:
-- Başlıqlar (#, ##, ..., ######)
-- Nömrələnməmiş listlər (- ilə başlayan sətirlər)
-- Nömrələnmiş listlər (* ilə başlayan sətirlər)
+Supported Markdown elements:
+- Headers (#, ##, ..., ######)
+- Unordered lists (lines starting with -)
+- Ordered lists (lines starting with *)
 
-İstifadə:
+Usage:
     ./markdown2html.py README.md README.html
 """
 import sys
