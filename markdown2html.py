@@ -33,8 +33,8 @@ if __name__ == "__main__":
         for i in range(len(lines)):
             line = lines[i].strip()
             count = 0
-            for i in line:
-                if i == "#":
+            for ch in line:
+                if ch == "#":
                     count += 1
                 else:
                     break
@@ -70,7 +70,7 @@ if __name__ == "__main__":
                     ol_line = False
                 next_line_exists= i+1 < len(lines)  
                 if next_line_exists:
-                    next_line= line[i+1].strip() 
+                    next_line= lines[i+1].strip() 
                     is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("* ") and not next_line.startswith("- ")
                 else:
                     is_continuation = False
