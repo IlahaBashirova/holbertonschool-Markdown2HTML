@@ -60,7 +60,8 @@ if __name__ == "__main__":
                     html.write("<ol>\n")
                     ol_line = True
                 html.write(f"<li>{line[2:].strip()}</li>\n")
-
+            
+            #<p> text
             elif line != "":
                 if is_line:
                     html.write("</ul>\n")
