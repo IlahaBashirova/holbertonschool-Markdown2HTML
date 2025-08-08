@@ -51,6 +51,24 @@ if __name__ == "__main__":
                     break
                 line=line[:start] + "<em>" + line[start+2:end] + "</em>" + line[end+2:]
 
+            while "[[" in line and "]]" in line:
+                start = line.find("[[")
+                end = line.find("]]", start + 2)
+                if end == -1:
+                    break
+                content = line[start+2:end].lower()
+                md5_text = hashlib.md5(content.encode()).hexdigest()
+                line = line[:start] + md5_text + line[end+2:]
+
+            
+            while "((" in line and "))" in line:
+                start = line.find("((")
+                end = line.find("))", start + 2)
+                if end == -1:
+                    break
+                content = line[start+2:end].replace("c", "").replace("C", "")
+                line = line[:start] + content + line[end+2:]
+
             if 1 <= count <= 6 and line[count:count + 1] == " ":
                 if is_line:
                     html.write("</ul>\n")
