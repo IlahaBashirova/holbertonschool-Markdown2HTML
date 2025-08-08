@@ -26,11 +26,12 @@ if __name__ == "__main__":
         sys.exit(1)
 
     with open(md_file, "r") as md, open(output_file, "w") as html:
+        lines=md_file.readlines()
         is_line = False
         ol_line = False
 
-        for line in md:
-            line = line.strip()
+        for i in range(len(lines)):
+            line = lines.strip()
             count = 0
             for i in line:
                 if i == "#":
@@ -60,6 +61,24 @@ if __name__ == "__main__":
                     ol_line = True
                 html.write(f"<li>{line[2:].strip()}</li>\n")
 
+            elif line !="":
+                if is_line:
+                    html.write("</ul>\n")
+                    is_line = False
+                if ol_line:
+                    html.write("</ol>\n")
+                    ol_line = False
+                next_line_exists= i+1 < len(line)  
+                if next_line_exists:
+                    next_line= line[i+1].strip() 
+                    is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("* ") and not next_line.startswith("- ")
+                else:
+                    is_continuation = False
+                if is_continuation:
+                    html.write(f"<p>{line}<br />\n")
+                else:
+                    html.write(f"{line}</p>\n")
+            
             else:
                 if ol_line:
                     html.write("</ol>\n")
@@ -67,15 +86,6 @@ if __name__ == "__main__":
                 if is_line:
                     html.write("</ul>\n")
                     is_line = False
-
-            for x in range(len(line)):
-                next_line_exists=x+1<len(line)
-                next_line=line[x+1].strip() if next_line_exists else ""
-            is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("- ")
-            if is_continuation:
-                html.write("<p>"+line+"<br />")
-            else:
-                html.write(line+"</p>")
         if is_line:
             html.write("</ul>\n")
         if ol_line:
