@@ -27,31 +27,15 @@ if __name__ == "__main__":
         sys.exit(1)
 
     with open(md_file, "r") as md, open(output_file, "w") as html:
-        lines=md.readlines()
+        lines = md.readlines()
         is_line = False
         ol_line = False
 
         for i in range(len(lines)):
             line = lines[i].strip()
-            count = 0
-            for ch in line:
-                if ch == "#":
-                    count += 1
-                else:
-                    break
-            while "**" in line:
-                start = line.find("**")
-                end = line.find("**", start + 2)
-                if end == -1:
-                    break
-                line = line[:start] + "<b>" + line[start+2:end] + "</b>" + line[end+2:]
-            while "__" in line:
-                start = line.find("__")
-                end=line.find("__",start+2)
-                if end==-1:
-                    break
-                line=line[:start] + "<em>" + line[start+2:end] + "</em>" + line[end+2:]
-
+            
+            # Process special syntax first, before other formatting
+            # Handle [[ ]] syntax - convert to MD5 hash
             while "[[" in line and "]]" in line:
                 start = line.find("[[")
                 end = line.find("]]", start + 2)
@@ -61,7 +45,7 @@ if __name__ == "__main__":
                 md5_text = hashlib.md5(content.encode()).hexdigest()
                 line = line[:start] + md5_text + line[end+2:]
 
-            
+            # Handle (( )) syntax - remove all 'c' and 'C' characters
             while "((" in line and "))" in line:
                 start = line.find("((")
                 end = line.find("))", start + 2)
@@ -70,29 +54,62 @@ if __name__ == "__main__":
                 content = line[start+2:end].replace("c", "").replace("C", "")
                 line = line[:start] + content + line[end+2:]
 
-            if 1 <= count <= 6 and line[count:count + 1] == " ":
+            # Handle bold syntax **text** -> <b>text</b>
+            while "**" in line:
+                start = line.find("**")
+                end = line.find("**", start + 2)
+                if end == -1:
+                    break
+                line = line[:start] + "<b>" + line[start+2:end] + "</b>" + line[end+2:]
+            
+            # Handle emphasis syntax __text__ -> <em>text</em>
+            while "__" in line:
+                start = line.find("__")
+                end = line.find("__", start + 2)
+                if end == -1:
+                    break
+                line = line[:start] + "<em>" + line[start+2:end] + "</em>" + line[end+2:]
+
+            # Count header level
+            count = 0
+            for ch in line:
+                if ch == "#":
+                    count += 1
+                else:
+                    break
+
+            # Handle headers
+            if 1 <= count <= 6 and len(line) > count and line[count] == " ":
                 if is_line:
                     html.write("</ul>\n")
                     is_line = False
                 if ol_line:
                     html.write("</ol>\n")
                     ol_line = False
-                content = line[count:].strip()
+                content = line[count+1:].strip()
                 html.write(f"<h{count}>{content}</h{count}>\n")
 
+            # Handle unordered list items
             elif line.startswith("- "):
+                if ol_line:
+                    html.write("</ol>\n")
+                    ol_line = False
                 if not is_line:
                     html.write("<ul>\n")
                     is_line = True
                 html.write(f"<li>{line[2:].strip()}</li>\n")
 
+            # Handle ordered list items
             elif line.startswith("* "):
+                if is_line:
+                    html.write("</ul>\n")
+                    is_line = False
                 if not ol_line:
                     html.write("<ol>\n")
                     ol_line = True
                 html.write(f"<li>{line[2:].strip()}</li>\n")
             
-            #<p> text
+            # Handle paragraph text
             elif line != "":
                 if is_line:
                     html.write("</ul>\n")
@@ -108,8 +125,8 @@ if __name__ == "__main__":
                     html.write("<br/>\n")
                 else:
                     html.write("</p>\n")
-            #<b> <em>
-                        
+            
+            # Handle empty lines
             else:
                 if ol_line:
                     html.write("</ol>\n")
@@ -117,6 +134,8 @@ if __name__ == "__main__":
                 if is_line:
                     html.write("</ul>\n")
                     is_line = False
+
+        # Close any remaining open lists
         if is_line:
             html.write("</ul>\n")
         if ol_line:
