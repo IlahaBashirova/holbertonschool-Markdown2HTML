@@ -70,7 +70,7 @@ if __name__ == "__main__":
                     ol_line = False
 
                 if i == 0 or lines[i - 1].strip() == "":
-                    html.write("<p>")
+                    html.write("<p>\n")
 
                 html.write(f"{line}\n")
 
