@@ -69,7 +69,8 @@ if __name__ == "__main__":
                     is_line = False
 
             for x in range(len(line)):
-                next_line=line[x+1]
+                next_line_exists=x+1<len(line)
+                next_line=line[x+1].strip() if next_line_exists else ""
             is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("- ")
             if is_continuation:
                 html.write("<p>"+line+"<br />")
