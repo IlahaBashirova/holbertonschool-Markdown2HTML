@@ -26,7 +26,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     with open(md_file, "r") as md, open(output_file, "w") as html:
-        lines=md_file.readlines()
+        lines=md.readlines()
         is_line = False
         ol_line = False
 
