@@ -68,17 +68,13 @@ if __name__ == "__main__":
                 if ol_line:
                     html.write("</ol>\n")
                     ol_line = False
-                next_line_exists= i+1 < len(lines)  
-                if next_line_exists:
-                    next_line= lines[i+1].strip() 
-                    is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("* ") and not next_line.startswith("- ")
+                if lines[0] or lines[i-1]=="":
+                    html.write(f"<p>\n")
+                html.write(line)
+                if i+1 <len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
+                    html.write("<br/>\n")
                 else:
-                    is_continuation = False
-                if is_continuation:
-                    html.write(f"<p>\n{line}\n<br/>\n")
-                    is_continuation=False
-                else:
-                    html.write(f"<p>\n{line}\n</p>\n")
+                    html.write("</p>\n")
             
             else:
                 if ol_line:
