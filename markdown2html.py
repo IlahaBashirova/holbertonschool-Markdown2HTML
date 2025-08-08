@@ -55,7 +55,7 @@ if __name__ == "__main__":
                     is_line = True
                 for x in range(len(line)):
                     if line[x]=="*" and line[x+1]=="*":
-                        html.write(f"<li>{line[2:x+1].strip()}<b> {line[x:x+2]}</b></li>\n")
+                        html.write(f"<li>{line[2:x+1].strip()}<b> {line[x+2:x+4]}</b> {line[x+7::]}</li>\n")
                     else:
                         html.write(f"<li>{line[2:].strip()}</li>\n")
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
                     html.write("<p>\n")
                 for c in range(len(line)):
                     if line[c]=="*" and line[c+1]=="*":
-                        html.write(f"{line[0:c+1].strip()}<b> {line[c:c+2]}</b>\n")
+                        html.write(f"{line[0:c+1].strip()}<b> {line[c+2:c+4]}</b> {line[c+7::]}\n")
 
                 if i + 1 < len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
                     html.write("<br/>\n")
