@@ -12,6 +12,7 @@ Usage:
 """
 import sys
 import os
+import hashlib
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
