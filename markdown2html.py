@@ -70,7 +70,7 @@ if __name__ == "__main__":
                     ol_line = False
                 if lines[0] or lines[i-1]=="":
                     html.write(f"<p>\n")
-                html.write(line)
+                html.write(f"{line}\n")
                 if i+1 <len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
                     html.write("<br/>\n")
                 else:
