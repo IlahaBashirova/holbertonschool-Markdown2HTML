@@ -38,6 +38,18 @@ if __name__ == "__main__":
                     count += 1
                 else:
                     break
+            while "**" in line:
+                start = line.find("**")
+                end = line.find("**", start + 2)
+                if end == -1:
+                    break
+                line = line[:start] + "<b>" + line[start+2:end] + "</b>" + line[end+2:]
+            while "__" in line:
+                start = line.find("__")
+                end=line.find("__",start+2)
+                if end==-1:
+                    break
+                line=line[:start] + "<em>" + line[start+2:end] + "</em>" + line[end+2:]
 
             if 1 <= count <= 6 and line[count:count + 1] == " ":
                 if is_line:
@@ -53,11 +65,7 @@ if __name__ == "__main__":
                 if not is_line:
                     html.write("<ul>\n")
                     is_line = True
-                for x in range(len(line)):
-                    if line[x]=="*" and line[x+1]=="*":
-                        html.write(f"<li>{line[2:x+1].strip()}<b> {line[x+2:x+4]}</b> {line[x+7::]}</li>\n")
-                    else:
-                        html.write(f"<li>{line[2:].strip()}</li>\n")
+                html.write(f"<li>{line[2:].strip()}</li>\n")
 
             elif line.startswith("* "):
                 if not ol_line:
@@ -76,16 +84,12 @@ if __name__ == "__main__":
 
                 if i == 0 or lines[i - 1].strip() == "":
                     html.write("<p>\n")
-                for c in range(len(line)):
-                    if line[c]=="*" and line[c+1]=="*":
-                        html.write(f"{line[0:c+1].strip()}<b> {line[c+2:c+4]}</b> {line[c+7::]}\n")
-
+                html.write(f"{line}\n")
                 if i + 1 < len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
                     html.write("<br/>\n")
                 else:
                     html.write("</p>\n")
             #<b> <em>
-
                         
             else:
                 if ol_line:
