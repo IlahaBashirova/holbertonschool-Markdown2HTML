@@ -68,6 +68,13 @@ if __name__ == "__main__":
                     html.write("</ul>\n")
                     is_line = False
 
+            for x in range(len(line)):
+                next_line=line[x+1]
+            is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("- ")
+            if is_continuation:
+                html.write("<p>"+line+"<br />")
+            else:
+                html.write(line+"</p>")
         if is_line:
             html.write("</ul>\n")
         if ol_line:
