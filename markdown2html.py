@@ -68,7 +68,7 @@ if __name__ == "__main__":
                 if ol_line:
                     html.write("</ol>\n")
                     ol_line = False
-                next_line_exists= i+1 < len(line)  
+                next_line_exists= i+1 < len(lines)  
                 if next_line_exists:
                     next_line= line[i+1].strip() 
                     is_continuation= next_line !="" and not next_line.startswith("#") and not next_line.startswith("* ") and not next_line.startswith("- ")
