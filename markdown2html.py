@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 if i == 0 or lines[i - 1].strip() == "":
                     html.write("<p>\n")
                 for c in range(len(line)):
-                    if line[c] and line[c+1]=="*":
+                    if line[c]=="*" and line[c+1]=="*":
                         html.write(f"{line[0:c+1].strip()}<b> {line[c:c+2]}</b>\n")
 
                 if i + 1 < len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
