@@ -61,21 +61,24 @@ if __name__ == "__main__":
                     ol_line = True
                 html.write(f"<li>{line[2:].strip()}</li>\n")
 
-            elif line !="":
+            elif line != "":
                 if is_line:
                     html.write("</ul>\n")
                     is_line = False
                 if ol_line:
                     html.write("</ol>\n")
                     ol_line = False
-                if lines[0] or lines[i-1]=="":
-                    html.write(f"<p>\n")
+
+                if i == 0 or lines[i - 1].strip() == "":
+                    html.write("<p>")
+
                 html.write(f"{line}\n")
-                if i+1 <len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
+
+                if i + 1 < len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
                     html.write("<br/>\n")
                 else:
                     html.write("</p>\n")
-            
+                        
             else:
                 if ol_line:
                     html.write("</ol>\n")
