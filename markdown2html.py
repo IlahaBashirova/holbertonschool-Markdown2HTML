@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 if is_continuation:
                     html.write(f"<p>\n  {line}\n        <br />\n")
                 else:
-                    html.write(f"   {line}\n</p>\n")
+                    html.write(f"<p>\n  {line}\n</p>\n")
             
             else:
                 if ol_line:
