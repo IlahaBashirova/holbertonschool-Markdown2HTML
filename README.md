@@ -1,6 +1,6 @@
 # My title
--Hello
--Bye
+- Hello
+- Bye
 ## My title2
 Hello
 
