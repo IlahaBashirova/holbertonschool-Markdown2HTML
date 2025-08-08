@@ -31,7 +31,7 @@ if __name__ == "__main__":
         ol_line = False
 
         for i in range(len(lines)):
-            line = lines.strip()
+            line = lines[i].strip()
             count = 0
             for i in line:
                 if i == "#":
