@@ -53,7 +53,11 @@ if __name__ == "__main__":
                 if not is_line:
                     html.write("<ul>\n")
                     is_line = True
-                html.write(f"<li>{line[2:].strip()}</li>\n")
+                for x in range(len(line)):
+                    if line[x]=="*" and line[x+1]=="*":
+                        html.write(f"<li>{line[2:x+1].strip()}<b> {line[x:x+2]}</b></li>\n")
+                    else:
+                        html.write(f"<li>{line[2:].strip()}</li>\n")
 
             elif line.startswith("* "):
                 if not ol_line:
@@ -72,13 +76,16 @@ if __name__ == "__main__":
 
                 if i == 0 or lines[i - 1].strip() == "":
                     html.write("<p>\n")
-
-                html.write(f"{line}\n")
+                for c in range(len(line)):
+                    if line[c] and line[c+1]=="*":
+                        html.write(f"{line[0:c+1].strip()}<b> {line[c:c+2]}</b>\n")
 
                 if i + 1 < len(lines) and lines[i + 1].strip() != "" and not lines[i + 1].startswith(("#", "-", "*")):
                     html.write("<br/>\n")
                 else:
                     html.write("</p>\n")
+            #<b> <em>
+
                         
             else:
                 if ol_line:
